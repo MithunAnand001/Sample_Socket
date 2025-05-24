@@ -75,7 +75,7 @@ func main() {
 
 	// index.html handler
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if err = indexTemplate.Execute(w, "ws://"+r.Host+"/websocket"); err != nil {
+		if err = indexTemplate.Execute(w, "wss://"+r.Host+"/websocket"); err != nil {
 			log.Error("Failed to parse index template", zap.Error(err))
 		}
 	})
