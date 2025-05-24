@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webrtc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webrtc
+  template:
+    metadata:
+      labels:
+        app: webrtc
+    spec:
+      containers:
+      - name: webrtc
+        image: webrtc-sample:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080 # or whatever your app uses
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webrtc-service
+spec:
+  type: NodePort
+  selector:
+    app: webrtc
+  ports:
+    - port: 80
+      targetPort: 8080
+      nodePort: 30007
